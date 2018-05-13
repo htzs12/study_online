@@ -81,8 +81,10 @@ WSGI_APPLICATION = 'study_online.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'online',
+        'USER':'root',
+        'PASSWORD':'wan1230',
     }
 }
 
@@ -130,3 +132,5 @@ MEDIA_URL='/media/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
+
+
