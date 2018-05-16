@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+#import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +29,6 @@ SECRET_KEY = 'p(36f_)yj*kro@og@e58+1)*1f=!tu7=k_1dzesa%30oaxup2$'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -42,7 +44,19 @@ INSTALLED_APPS = [
     'crispy_forms',
     'pure_pagination',
     'captcha',
+    'users',
+    'courses',
+    'operation',
+    'organization'
 ]
+
+AUTH_USER_MODEL='users.UserProfile' #扩展user字段
+
+AUTHENTICATION_BACKENDS = (
+
+    'users.views.CustomBackend',
+
+) #邮箱、用户名都可以登录
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +73,7 @@ ROOT_URLCONF = 'study_online.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR,'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -85,6 +99,7 @@ DATABASES = {
         'NAME': 'online',
         'USER':'root',
         'PASSWORD':'wan1230',
+        'HOST':'127.0.0.1',
     }
 }
 

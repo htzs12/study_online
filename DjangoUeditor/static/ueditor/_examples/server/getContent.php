@@ -1,8 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<script src="../../ueditor.parse.js" type="text/javascript"></script>
+<script src="/static//static/ueditor.parse.js" type="text/javascript"></script>
 <script>
     uParse('.content',{
-        'rootPath': '../'
+        'rootPath': '/static/'
     })
 
 </script>
