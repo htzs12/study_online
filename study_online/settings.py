@@ -149,3 +149,9 @@ STATICFILES_DIRS=[
 ]
 
 
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_POST = 25
+EMAIL_HOST_USER = 'htzs12@sina.com'
+EMAIL_HOST_PASSWORD = 'lihao199121'
+EMAIL_USE_TLS = False
+EMAIL_FROM = 'www.htzs@qq.com'
