@@ -149,9 +149,9 @@ STATICFILES_DIRS=[
 ]
 
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sina.com'
+EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = 'htzs12@sina.com'
-EMAIL_HOST_PASSWORD = 'lihao199121'
+EMAIL_HOST_USER = 'www.htzs@qq.com'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
-EMAIL_FROM = 'htzs12@sina.com'
+EMAIL_FROM = 'www.htzs@qq.com'
