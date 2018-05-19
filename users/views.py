@@ -15,7 +15,6 @@ from utils.email_send import send_register_email
 
 
 #实现邮箱和用户名都可以登录
-
 class CustomBackend(ModelBackend):
     def authenticate(self,username=None, password=None, **kwargs):
         try:
@@ -44,7 +43,6 @@ def user_login(request):
 """
 
 #用户登录
-
 class LoginView(View):
     def get(self,request):
         return render(request,'login.html')
@@ -68,7 +66,6 @@ class LoginView(View):
 
 
 #用户注册
-
 class RegisterView(View):
     def get(self,request):
         register_form = RegisterForm()
@@ -100,7 +97,7 @@ class RegisterView(View):
         else:
             return render(request, 'register.html',{'register_form':register_form})
 
-
+#激活用户
 class ActiveUserView(View):
     def get(self,request,active_code):
         all_record = EmailVerifyRecord.objects.filter(code = active_code)
@@ -118,13 +115,14 @@ class ActiveUserView(View):
         else:
             return render(request,'register.html',{'msg':'您的激活链接无效','active_form':active_form})
 
-
+#退出
 class LogoutView(View):
     def get(self,request):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
 
 
+#忘记密码-发送验证码
 class ForgetPwdView(View):
     def get(self,request):
         forget_form = ForgetForm()
@@ -145,6 +143,7 @@ class ForgetPwdView(View):
         else:
             return render(request,'forgetpwd.html',{'forget_form':forget_form})
 
+#重置密码链接
 class ResetView(View):
     def get(self,request,active_code):
         all_record = EmailVerifyRecord.objects.filter(code=active_code)
@@ -158,7 +157,7 @@ class ResetView(View):
         else:
             return render(request,'forgetpwd.html',{'msg':'您的重置密码链接无效，请重新请求','active_form':active_form})
 
-
+#重置密码更改
 class ModifyPwdView(View):
     def get(self,request):
         return render(request,'password_reset.html')
