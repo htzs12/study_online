@@ -58,17 +58,17 @@
 				</ul>
 			</div>
 
-            {% for org in all_orgs.object_list %}
+            {% for course_org in all_orgs.object_list %}
                 <dl class="des difdes">
                     <dt>
-                        <a href="org-detail-homepage.html">
-                            <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>
+                        <a href="{% url 'org:org_home' course_org.id %}">
+                            <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ course_org.image }}"/>
                         </a>
                     </dt>
                     <dd>
                         <div class="clearfix">
-                             <a href="org-detail-homepage.html">
-                                 <h1>{{ org.name }}</h1>
+                             <a href="{% url 'org:org_home' course_org.id %}">
+                                 <h1>{{ course_org.name }}</h1>
                                  <div class="pic fl">
 
                                          <img src="/static/images/authentication.png"/>
@@ -79,8 +79,8 @@
                              </a>
                         </div>
                         <ul class="cont">
-                            <li class="first"><p class="pic9">课程数：<span>{{ org.course_nums }}</span></p><p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
-                            <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
+                            <li class="first"><p class="pic9">课程数：<span>{{ course_org.course_nums }}</span></p><p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
+                            <li class="c8" style="padding-left:18px;">{{ course_org.address }}</li>
                             <li class="pic10" style="padding-left:18px;">经典课程：
 
                                     <a href="/diary/19/">c语言基础入门</a>
@@ -136,6 +136,7 @@
                 </div>
                 <p class="error company-tips" id="jsCompanyTips"></p>
 				<input class="btn" type="text" id="jsStayBtn" value="立即咨询 >" />
+                {% csrf_token %}
             </form>
 		</div>
 
@@ -157,48 +158,29 @@
         </div>
 </section>
 {% endblock %}
-<footer>
-		<div class="footer">
-			<div class="wp">
-				<ul class="cont">
-					<li class="logo"><a href=""><img src="/static/images/footlogo.png"/></a></li>
-					<li class="code"><img src="/static/images/code.jpg"/><p class="center">扫描关注微信</p></li>
-					<li class="third"><img class="fl" src="/static/images/tell.png"/><p class="tell">33333333</p><p class="time">周一至周日 9:00-18:00</p></li>
-				</ul>
-
-			</div>
-			<p class="line"></p>
-			<div class="wp clear">
-                <span class="fl">? 2016 www.projectsedu.com 慕学在线-在线学习交流平台 保留所有权利</span>
-                <span class="fr">copyright ? 2016 ICP备案证书号：蜀ICP备xxxxx号-1</span>
-			</div>
-		</div>
-	</footer>
-
+y
+{% block my_js %}
 <script>
     $(function(){
-        $(document).ready(function() {
-            $('#jsStayBtn').on('click', function () {
-                $.ajax({
-                    cache: false,
-                    type: "POST",
-                    url: "/org/add_ask/",
-                    data: $('#jsStayForm').serialize(),
-                    async: true,
-                    success: function (data) {
-                        if (data.status == 'success') {
-                            $('#jsStayForm')[0].reset();
-                            alert("提交成功")
-                        } else if (data.status == 'fail') {
-                            $('#jsCompanyTips').html(data.msg)
-                        }
-                    },
-                });
+        $('#jsStayBtn').on('click', function(){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url:"{% url "org:add_ask" %}",
+                data:$('#jsStayForm').serialize(),
+                async: true,
+                success: function(data) {
+                    if(data.status == 'success'){
+                        $('#jsStayForm')[0].reset();
+                         $('#jsCompanyTips').html("");
+                        alert("提交成功")
+                    }else if(data.status == 'fail'){
+                        $('#jsCompanyTips').html(data.msg)
+                        alert("提交失败")
+                    }
+                },
             });
         });
     })
-
 </script>
-
-</body>
-</html>
+{% endblock %}
