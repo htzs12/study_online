@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,re_path,include
 from django.views.generic import TemplateView
+from django.views.static import serve
 import xadmin
+from  study_online.settings import MEDIA_ROOT
 
 from users.views import LoginView,RegisterView,ActiveUserView,LogoutView,ForgetPwdView,ResetView,ModifyPwdView
 
@@ -31,4 +33,9 @@ urlpatterns = [
     path("captcha/", include('captcha.urls')),
     re_path('active/(?P<active_code>.*)/',ActiveUserView.as_view(),name='user_active'),
     re_path('reset/(?P<active_code>.*)/',ResetView.as_view(),name='reset_pwd'),
+
+    path('org/',include(('organization.urls'),namespace='organization')),
+
+    #处理图片显示的url, 使用Django自带serve, 传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
+    re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
 ]

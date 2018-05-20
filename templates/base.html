@@ -97,10 +97,20 @@
 			</div>
     </header>
 </section>
+
 <!--crumbs start-->
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li>课程机构</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
 
 {% block content %}
-
 
 {% endblock %}
 
@@ -131,7 +141,6 @@
     </ul>
 </section>
 
-
 <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
@@ -141,10 +150,6 @@
 <script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/plugins/jquery.scrollLoading.js' %}"  type="text/javascript"></script>
-<script src="{% static 'js/deco-common.js' %}"  type="text/javascript"></script>
-
-<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-
 {% block my_js %}
 
 {% endblock %}

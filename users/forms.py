@@ -18,11 +18,6 @@ class RegisterForm(forms.Form):
     captcha = CaptchaField(error_messages={'invalid':'验证码错误'})
 
 
-#用户激活表单
-class ActiveForm(forms.Form):
-    captcha = CaptchaField(error_messages={'invalid':'验证码错误'})
-
-
 #忘记密码表单
 class ForgetForm(forms.Form):
     email = forms.EmailField(required=True)

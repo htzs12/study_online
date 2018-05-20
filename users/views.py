@@ -10,7 +10,7 @@ from django.urls import reverse
 # Create your views here.
 
 from .models import UserProfile,EmailVerifyRecord
-from .forms import LoginForm,RegisterForm,ActiveForm,ForgetForm,ModifyPwdForm
+from .forms import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm
 from utils.email_send import send_register_email
 
 
@@ -101,8 +101,6 @@ class RegisterView(View):
 class ActiveUserView(View):
     def get(self,request,active_code):
         all_record = EmailVerifyRecord.objects.filter(code = active_code)
-        active_form = ActiveForm(request.GET)
-
         if all_record:
             for record in all_record:
                 email = record.email
@@ -113,7 +111,7 @@ class ActiveUserView(View):
 
                 return render(request,'login.html',{'msg':'激活成功，请登录'})
         else:
-            return render(request,'register.html',{'msg':'您的激活链接无效','active_form':active_form})
+            return render(request,'login.html',{'msg':'您的激活链接无效'})
 
 #退出
 class LogoutView(View):
@@ -147,15 +145,14 @@ class ForgetPwdView(View):
 class ResetView(View):
     def get(self,request,active_code):
         all_record = EmailVerifyRecord.objects.filter(code=active_code)
-        active_form = ActiveForm(request.GET)
 
         if all_record:
             for record in all_record:
                 email = record.email
 
-                return render(request,'password_reset.html',{'email':email})
+                return render(request,'password_reset.html',{'email':email}) #email必须传，才能知道哪个用户修改
         else:
-            return render(request,'forgetpwd.html',{'msg':'您的重置密码链接无效，请重新请求','active_form':active_form})
+            return render(request,'forgetpwd.html',{'msg':'您的重置密码链接无效，请重新请求'})
 
 #重置密码更改
 class ModifyPwdView(View):
