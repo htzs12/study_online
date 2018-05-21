@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'org_base.html' %}
 
 {% block title %}机构课程列表页{% endblock %}
 
@@ -26,7 +26,7 @@
                         <span class="fl">{{ course_org.name }}</span>
                          <span class="star fr  notlogin
                             " data-favid="13" data-fav-type="4">
-                            0
+                            {{ course.fav_nums }}
                         </span>
                     </div>
                 </div>
