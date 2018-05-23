@@ -22,6 +22,7 @@ from  study_online.settings import MEDIA_ROOT
 
 from users.views import LoginView,RegisterView,ActiveUserView,LogoutView,ForgetPwdView,ResetView,ModifyPwdView
 
+
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'),name='index'),
@@ -36,7 +37,9 @@ urlpatterns = [
 
     path("org/", include('organization.urls', namespace='org')),
     path("course/", include('courses.urls', namespace='course')),
+    path("users/", include('users.urls')),
     path("captcha/", include('captcha.urls')),
+
 
     #处理图片显示的url, 使用Django自带serve, 传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),

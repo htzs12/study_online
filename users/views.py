@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from utils.mixin_utils import LoginRequiredMixin
 
 # Create your views here.
 
@@ -178,6 +179,10 @@ class ModifyPwdView(View):
             return render(request,'password_reset.html',{'email':email,'modifypwd_form':modifypwd_form})
 
 
+#用户信息
+class UserInfoView(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request,'usercenter-info.html',{})
 
 
 
