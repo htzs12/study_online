@@ -77,7 +77,7 @@ var verify = verifyDialogSubmit(
 
 $(function(){
     //个人资料修改密码
-    $('#jsUserResetPwd').on('click', function(){
+   $('#jsUserResetPwd').on('click', function(){
         Dml.fun.showDialog('#jsResetDialog', '#jsResetPwdTips');
     });
 
@@ -89,6 +89,9 @@ $(function(){
             url:"/users/update/pwd/",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
+            beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
             success: function(data) {
                 if(data.password1){
                     Dml.fun.showValidateError($("#pwd"), data.password1);

@@ -8,7 +8,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
 
-	{% block title %}<title>个人信息- 慕学在线网</title>{% endblock %}
+	<title>{% block title %}个人信息- 慕学在线网{% endblock %}</title>
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
@@ -29,7 +29,6 @@
 				<div class="wp">
 					<div class="fl"><p>服务电话：<b>33333333</b></p></div>
 					<!--登录后跳转-->
-
 
                         <div class="personal">
                             <dl class="user fr">
@@ -73,8 +72,8 @@
     <section>
         <div class="wp">
             <ul  class="crumbs">
-                <li><a href="index.html">首页</a>></li>
-                <li><a href="/user/home/">个人中心</a>></li>
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
                 <li>个人信息</li>
             </ul>
         </div>
@@ -86,11 +85,19 @@
 <div class="wp list personal_list">
 	<div class="left">
         <ul>
-            <li class="active2"><a href="usercenter-info.html">个人资料</a></li>
-            <li ><a href="usercenter-mycourse.html">我的课程</a></li>
-            <li ><a href="usercenter-fav-course.html">我的收藏</a></li>
-            <li >
-                <a href="usercenter-message.html" style="position: relative;">
+            <li {% ifequal  '/users/info/' request.path %}
+            class="active2"
+            {% endifequal %}><a href="{% url 'users:user_info' %}">个人资料</a></li>
+            <li {% ifequal  '/users/mycourse/' request.path %}
+            class="active2"
+            {% endifequal %}><a href="{% url 'users:mycourse' %}">我的课程</a></li>
+            <li {% ifequal  '/users/myfav/' request.path|slice:'13' %}
+            class="active2"
+            {% endifequal %}><a href="{% url 'users:myfav_org' %}">我的收藏</a></li>
+            <li {% ifequal  '/users/mymessage/' request.path %}
+            class="active2"
+            {% endifequal %}>
+                <a href="{% url 'users:mymessage' %}" style="position: relative;">
                     我的消息
                 </a>
             </li>
@@ -129,7 +136,7 @@
                             <i class="error-tips"></i>
                         </li>
 						<li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
-                           <input type="text" id="birth_day" name="birday" value="2009年9月2日" readonly="readonly"/>
+                          <input type="text" id="birth_day" name="birthday" value="{{ request.user.birthday|date:'Y-m-d' }}" readonly="readonly"/>
                             <i class="error-tips"></i>
 						</li>
 						<li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
@@ -151,6 +158,7 @@
 							<input type="button" id="jsEditUserBtn" value="保存">
 						</li>
 					</ul>
+                    {% csrf_token %}
 				</form>
 			</div>
 		</div>
@@ -252,44 +260,41 @@
         <h1>重新设置密码</h1>
         <div class="close jsCloseDialog"><img src="/static/images/dig_close.png"/></div>
         <p class="green">请输入新密码</p>
-        <form id="jsSetNewPwdForm">
-            <div class="box">
-                <span class="word2">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
-                <input type="password" name="password" id="jsResetPwd" placeholder="请输入新密码"/>
-            </div>
-            <div class="box">
-                <span class="word2">确&nbsp;认&nbsp;密&nbsp;码</span>
-                <input type="password" name="password2" id="jsResetPwd2" placeholder="请再次输入新密码"/>
-            </div>
-            <div class="box">
-                <span class="word2">验&nbsp;&nbsp;证&nbsp;&nbsp;码</span>
-                <input type="text" name="code" id="jsResetCode" placeholder="请输入手机验证码"/>
-            </div>
-            <div class="error btns" id="jsSetNewPwdTips"></div>
-            <div class="button">
-                <input type="hidden" name="mobile" id="jsInpResetMobil" />
-                <input id="jsSetNewPwdBtn" type="button" value="提交" />
-            </div>
-        </form>
+
+             <form id="jsResetPwdForm" autocomplete="off">
+                <div class="box">
+                    <span class="word2" >新&nbsp;&nbsp;密&nbsp;&nbsp;码</span>
+                    <input type="password" id="pwd" name="password1" placeholder="6-20位非中文字符"/>
+                </div>
+                <div class="box">
+                    <span class="word2" >确定密码</span>
+                    <input type="password" id="repwd" name="password2" placeholder="6-20位非中文字符"/>
+                </div>
+                <div class="error btns" id="jsResetPwdTips"></div>
+                <div class="button">
+                    <input id="jsResetPwdBtn" type="button" value="提交" />
+                </div>
+            {% csrf_token %}
+            </form>
     </div>
     <div class="forgetbox dialogbox">
         <h1>忘记密码</h1>
         <div class="close jsCloseDialog"><img src="/static/images/dig_close.png"/></div>
         <div class="cont">
-            <form id="jsFindPwdForm" autocomplete="off">
+             <form id="jsResetPwdForm" autocomplete="off">
                 <div class="box">
-                    <span class="word2" >账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
-                    <input type="text" id="account" name="account" placeholder="手机/邮箱"/>
+                    <span class="word2" >新&nbsp;&nbsp;密&nbsp;&nbsp;码</span>
+                    <input type="password" id="pwd" name="password1" placeholder="6-20位非中文字符"/>
                 </div>
                 <div class="box">
-                    <span class="word3">验证码</span>
-                    <input autocomplete="off" class="form-control-captcha find-password-captcha" id="find-password-captcha_1" name="captcha_f_1" placeholder="请输入验证码" type="text" /> <input class="form-control-captcha find-password-captcha" id="find-password-captcha_0" name="captcha_f_0" placeholder="请输入验证码" type="hidden" value="5f3c00e47fb1be12d2fd15b9a860711597721b3f" /> &nbsp;<img src="/captcha/image/5f3c00e47fb1be12d2fd15b9a860711597721b3f/" alt="captcha" class="captcha" />
+                    <span class="word2" >确定密码</span>
+                    <input type="password" id="repwd" name="password2" placeholder="6-20位非中文字符"/>
                 </div>
-                <div class="error btns" id="jsForgetTips"></div><!--忘记密码错误-->
+                <div class="error btns" id="jsResetPwdTips"></div>
                 <div class="button">
-                    <input type="hidden" name="sms_type" value="1">
-                    <input id="jsFindPwdBtn" type="button" value="提交" />
+                    <input id="jsResetPwdBtn" type="button" value="提交" />
                 </div>
+                {% csrf_token %}
             </form>
         </div>
     </div>
@@ -324,11 +329,11 @@
             $.ajax({
                 cache: false,
                 type: "POST",
-                url: "/org/add_fav/",
+                url: "{% url 'org:add_fav' %}",
                 data: {
                     fav_type: 1,
                     fav_id: favid,
-                    csrfmiddlewaretoken: '799Y6iPeEDNSGvrTu3noBrO4MBLv6enY'
+                    csrfmiddlewaretoken: '{% csrf_token %}'
                 },
                 async: true,
                 success: function (data) {
