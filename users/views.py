@@ -4,14 +4,14 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
 from django.views.generic.base import View
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
 from utils.mixin_utils import LoginRequiredMixin
 
 # Create your views here.
 
 from .models import UserProfile,EmailVerifyRecord
-from .forms import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm
+from .forms import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm,UploadImageForm
 from utils.email_send import send_register_email
 
 
@@ -183,6 +183,15 @@ class ModifyPwdView(View):
 class UserInfoView(LoginRequiredMixin,View):
     def get(self,request):
         return render(request,'usercenter-info.html',{})
+
+
+class UploadImageView(LoginRequiredMixin,View):
+    def post(self,request):
+        image_form = UploadImageForm(request.POST,request.FILES,instance=request.user)
+        if image_form.is_valid():
+            pass
+        return HttpResponse('ok')
+
 
 
 
