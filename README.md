@@ -1,1 +1,3 @@
-# study_online
+# study_online (django+xadmin实战课程学习)
+2018.5.26 学习结束，
+实现课程中全部功能，学到很多新的知识，感谢老师的课程～～
