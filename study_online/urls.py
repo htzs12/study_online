@@ -18,14 +18,16 @@ from django.urls import path,re_path,include
 from django.views.generic import TemplateView
 from django.views.static import serve
 import xadmin
-from  study_online.settings import MEDIA_ROOT
+from study_online.settings import MEDIA_ROOT
 
-from users.views import LoginView,RegisterView,ActiveUserView,LogoutView,ForgetPwdView,ResetView,ModifyPwdView
+from users.views import LoginView,RegisterView,ActiveUserView,\
+    LogoutView,ForgetPwdView,ResetView,ModifyPwdView,IndexView
 
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html'),name='index'),
+    #path('', TemplateView.as_view(template_name='index.html'),name='index'),
+    path('', IndexView.as_view(),name='index'),
     path('login/', LoginView.as_view(),name='login'),
     path('logout/', LogoutView.as_view(),name='logout'),
     path('register/', RegisterView.as_view(),name='register'),
@@ -40,7 +42,12 @@ urlpatterns = [
     path("users/", include('users.urls')),
     path("captcha/", include('captcha.urls')),
 
-
     #处理图片显示的url, 使用Django自带serve, 传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
+    #re_path('static/(?P<path>.*)', serve, {"document_root": STATIC_ROOT}),
 ]
+
+# 全局404页面配置
+handler404 = 'user.views.page_not_found'
+handler500 = 'user.views.page_error'
+

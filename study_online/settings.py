@@ -28,7 +28,7 @@ SECRET_KEY = 'p(36f_)yj*kro@og@e58+1)*1f=!tu7=k_1dzesa%30oaxup2$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -154,10 +154,13 @@ STATIC_URL = '/static/'
 MEDIA_URL='/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+#STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
 
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
+
 
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'

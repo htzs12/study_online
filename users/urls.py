@@ -18,7 +18,6 @@ urlpatterns = [
     #path('update/pwd/',csrf_exempt(UpdatePwdView.as_view()),name='update_pwd'),
 
     path('update/pwd/',UpdatePwdView.as_view(),name='update_pwd'),
-
     path('sendemail_code/pwd/',UpdatePwdView.as_view(),name='sendemail_code'),
     path('update_email/', UpdateEmailView.as_view(), name="update_email"),
     path('mycourse/', MyCourseView.as_view(), name="mycourse"),
