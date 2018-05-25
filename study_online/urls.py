@@ -42,6 +42,8 @@ urlpatterns = [
     path("users/", include('users.urls')),
     path("captcha/", include('captcha.urls')),
 
+    path('ueditor/', include('DjangoUeditor.urls')),
+
     #处理图片显示的url, 使用Django自带serve, 传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
     #re_path('static/(?P<path>.*)', serve, {"document_root": STATIC_ROOT}),

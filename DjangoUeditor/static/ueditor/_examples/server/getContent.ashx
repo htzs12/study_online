@@ -22,11 +22,11 @@ public class getContent : IHttpHandler {
         //-------------
 
         //显示
-        context.Response.Write("<script src='/static/ueditor.parse.js' type='text/javascript'></script>");
+        context.Response.Write("<script src='../ueditor.parse.js' type='text/javascript'></script>");
         context.Response.Write(
 
             "<script>uParse('.content',{"+
-                  "'rootPath': '/static/'"+
+                  "'rootPath': '../'"+
               "})"+
             "</script>");
 

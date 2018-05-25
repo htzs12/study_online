@@ -1,9 +1,9 @@
 <% @LANGUAGE="VBSCRIPT" CODEPAGE="65001" %> 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<script src="/static//static/ueditor.parse.js" type="text/javascript"></script>
+<script src="../../ueditor.parse.js" type="text/javascript"></script>
 <script>
    uParse('.content',{
-            'rootPath': '/static/'
+            'rootPath': '../'
    })
 
 </script>

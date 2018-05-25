@@ -5,11 +5,25 @@ from .models import Course,Lesson,Video,CourseResource
 import xadmin
 
 
+class LessonInline():
+    model = Lesson
+    extra = 0
+
+
 class CourseAdmin():
-    list_display = ['name', 'desc','degree','learn_times','student','fav_nums','image','click_nums','add_time']
+    list_display = ['name', 'desc','degree','learn_times','student','fav_nums','image',
+                    'click_nums','add_time','get_zj_nums','go_to']
     search_fields = ['name', 'desc','degree','detail','student']
     list_filter = ['name', 'desc','degree','learn_times','student','fav_nums','click_nums','add_time']
+    style_fields = {"detail": "ueditor"}
 
+    #model_icon = 'fa fa-user'
+    readonly_fields = ['student']
+    #exclude = ['student']  不起作用
+    #inlines = [LessonInline]不起作用
+    list_editable = ['degree','desc'] #编辑
+
+    #refresh_times = [3,5] 自动刷新
 
 class LessionAdmin():
     list_display = ['course','name', 'add_time']

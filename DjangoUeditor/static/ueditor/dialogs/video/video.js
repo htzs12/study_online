@@ -389,7 +389,7 @@
                     id: '#filePickerReady',
                     label: lang.uploadSelectFile
                 },
-                swf: '/static//static/third-party/webuploader/Uploader.swf',
+                swf: '../../third-party/webuploader/Uploader.swf',
                 server: actionUrl,
                 fileVal: editor.getOpt('videoFieldName'),
                 duplicate: true,
